@@ -2,20 +2,10 @@
   <div class="app-header-root">
     <div class="drag">{{ tryuseComment }}</div>
     <div class="window-workbench">
-      <el-popover
-        popper-class="caution-popover"
-        ref="PopoverRef"
-        trigger="click"
-        width="350px"
-        :virtual-ref="ButtonRef"
-        :hide-after="10"
-        :tabindex="100"
-        :offset="10"
-        :persistent="false"
-        virtual-triggering>
+      <el-popover ref="PopoverRef" popper-class="caution-popover" trigger="click" width="350px" :virtual-ref="ButtonRef" :hide-after="10" :tabindex="100" :offset="10" :persistent="false" virtual-triggering>
         <div v-if="!userStore.isLogin" class="caution-popover-placeholder">登录后查看</div>
         <div v-else class="caution-content">
-          <bl-row class="caution-row caution-row-warn" v-if="!userStore.paramIsCorrect" @click="showQuickSetting">
+          <bl-row v-if="!userStore.paramIsCorrect" class="caution-row caution-row-warn" @click="showQuickSetting">
             <bl-col width="40px" height="40px" class="iconbl bl-blog" just="center"></bl-col>
             <bl-col just="center">您有一些设置需要修改，点击快速设置。</bl-col>
           </bl-row>
@@ -27,15 +17,11 @@
 
           <bl-row class="no-more" just="center"> 无更多内容 </bl-row>
         </div>
-        <bl-row v-if="userStore.isLogin" class="caution-footer" just="flex-end">
+        <!-- <bl-row v-if="userStore.isLogin" class="caution-footer" just="flex-end">
           <div @click="showQuickSetting">快速配置</div>
-        </bl-row>
+        </bl-row> -->
       </el-popover>
-      <div
-        v-if="!props.simple"
-        :class="['iconbl', 'bl-caution-line', userStore.paramIsCorrect ? '' : 'warn-heightlight']"
-        ref="ButtonRef"
-        v-click-outside="onClickOutside"></div>
+      <div v-if="!props.simple" ref="ButtonRef" v-click-outside="onClickOutside" :class="['iconbl', 'bl-caution-line', userStore.paramIsCorrect ? '' : 'warn-heightlight']"></div>
 
       <el-tooltip content="主题配置" popper-class="is-small" transition="none" effect="light" placement="top" :show-after="0" :hide-after="0">
         <div v-if="!props.simple" class="iconbl bl-a-colorpalette-line" @click="themeStrore.show()"></div>
@@ -53,28 +39,23 @@
         <div v-if="isElectron()" :class="['iconbl bl-computer-line', isWindows() ? '' : 'electron-mac-last']" @click="setBestSize"></div>
       </el-tooltip>
 
+      <el-tooltip v-if="userStore.isLogin" content="退出" popper-class="is-small" transition="none" effect="light" placement="top" :show-after="0" :hide-after="0">
+        <div v-if="!props.simple" class="iconbl bl-logout-circle-line" @click="logout"></div>
+      </el-tooltip>
+
       <div v-if="isElectron() && isWindows()" class="iconbl bl-subtract-line" @click="windowMin"></div>
       <div v-if="isElectron() && isWindows()" :class="['iconbl', isFullScreen ? 'bl-win-reset' : 'bl-box-line']" @click="windowMax"></div>
       <div v-if="isElectron() && isWindows()" class="close iconbl bl-a-closeline-line" @click="windowHide"></div>
     </div>
   </div>
 
-  <el-drawer class="web-collect-drawer" size="420" v-model="isShowWebDrawer">
+  <el-drawer v-model="isShowWebDrawer" class="web-collect-drawer" size="420">
     <WebCollect></WebCollect>
   </el-drawer>
 
-  <el-dialog
-    v-model="isShowQuickSetting"
-    class="bl-dialog-bigger-headerbtn"
-    width="750px"
-    :align-center="true"
-    :append-to-body="true"
-    :lock-scroll="false"
-    :destroy-on-close="true"
-    :close-on-click-modal="false"
-    draggable>
+  <!-- <el-dialog v-model="isShowQuickSetting" class="bl-dialog-bigger-headerbtn" width="750px" :align-center="true" :append-to-body="true" :lock-scroll="false" :destroy-on-close="true" :close-on-click-modal="false" draggable>
     <QuickSetting ref="PlanDayInfoRef" @completed="quickSettingComplete"></QuickSetting>
-  </el-dialog>
+  </el-dialog> -->
 </template>
 
 <script setup lang="ts">
@@ -136,7 +117,6 @@ const handleResize = () => {
 
 const ButtonRef = ref()
 const PopoverRef = ref()
-const isShowQuickSetting = ref(false)
 
 /**
  * 点击外部时关闭
@@ -145,14 +125,10 @@ const onClickOutside = () => {
   unref(PopoverRef).popperRef?.delayHide?.()
 }
 
-const showQuickSetting = () => {
-  unref(PopoverRef).popperRef?.delayHide?.()
-  isShowQuickSetting.value = true
+const logout = async () => {
+  await userStore.logout()
 }
 
-const quickSettingComplete = () => {
-  isShowQuickSetting.value = false
-}
 //#endregion
 </script>
 

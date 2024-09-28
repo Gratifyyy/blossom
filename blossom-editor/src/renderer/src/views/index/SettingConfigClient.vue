@@ -76,7 +76,7 @@
       </el-form-item>
     </el-form>
 
-    <el-form label-position="right" label-width="130px" style="max-width: 800px">
+    <!-- <el-form label-position="right" label-width="130px" style="max-width: 800px">
       <bl-row just="flex-start" class="config-module-titile"><span class="iconbl bl-apps-line"></span>其他</bl-row>
       <el-form-item label="登录后进入首页">
         <bl-row>
@@ -96,7 +96,7 @@
         </bl-row>
         <div class="conf-tip">设置日间/夜间主题颜色。</div>
       </el-form-item>
-    </el-form>
+    </el-form> -->
   </div>
 </template>
 

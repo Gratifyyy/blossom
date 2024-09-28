@@ -1,10 +1,9 @@
 <template>
   <div class="index-aside-root">
-    <div class="item-logo" v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideLogo">
+    <div v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideLogo" class="item-logo">
       <logo :name="true"></logo>
     </div>
-    <div
-      :class="[
+    <div :class="[
         isMacOS() ? 'mac' : '',
         viewStyle.isShowAsideSimple ? 'aside-item-container-simple' : 'aside-item-container',
         viewStyle.isGlobalShadow ? 'aside-item-container-heavy' : 'aside-item-container-light',
@@ -12,7 +11,7 @@
       ]">
       <!-- 模块菜单 -->
       <div class="aside-item item-menu-container">
-        <div class="aside-item item-user top-user" v-if="viewStyle.isShowAsideSimple || !viewStyle.isShowAsideLogo">
+        <div v-if="viewStyle.isShowAsideSimple || !viewStyle.isShowAsideLogo" class="aside-item item-user top-user">
           <user></user>
         </div>
         <div v-for="menu in menus" :key="menu.name" :class="['item-menu iconbl', menu.icon, isActive(menu.path)]" @click="toRoute(menu)">
@@ -20,10 +19,10 @@
         </div>
       </div>
       <div>
-        <div class="aside-item item-user" v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideLogo">
+        <div v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideLogo" class="aside-item item-user">
           <user></user>
         </div>
-        <div class="aside-item item-upload" v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideUpload">
+        <div v-if="!viewStyle.isShowAsideSimple && viewStyle.isShowAsideUpload" class="aside-item item-upload">
           <upload></upload>
         </div>
         <div class="aside-item item-setting">
@@ -65,12 +64,12 @@ interface AsideMenu {
   icon: string
 }
 const menus = ref<AsideMenu[]>([
-  { login: true, name: 'Home', path: '/home', icon: 'bl-a-home1-line' },
-  { login: true, name: 'Editor', path: '/articleIndex', icon: 'bl-a-texteditorhighlightcolor-line' },
-  { login: true, name: 'Pic', path: '/pictureIndex', icon: 'bl-picture-line' },
-  { login: true, name: 'Todo', path: '/todoIndex', icon: 'bl-a-labellist-line' },
-  { login: true, name: 'Plan', path: '/planIndex', icon: 'bl-calendar-line' },
-  { login: true, name: 'Note', path: '/noteIndex', icon: 'bl-note-line' }
+  { login: true, name: '主页', path: '/home', icon: 'bl-a-home1-line' },
+  { login: true, name: '编辑', path: '/articleIndex', icon: 'bl-a-texteditorhighlightcolor-line' },
+  { login: true, name: '相册', path: '/pictureIndex', icon: 'bl-picture-line' },
+  { login: true, name: '待做', path: '/todoIndex', icon: 'bl-a-labellist-line' },
+  { login: true, name: '计划', path: '/planIndex', icon: 'bl-calendar-line' },
+  { login: true, name: '便签', path: '/noteIndex', icon: 'bl-note-line' }
 ])
 
 const activeMenuPath = ref<string>('home')
@@ -167,9 +166,7 @@ const isLogin = () => {
         padding: 5px 0;
         margin: 0 1px 5px 0;
         border-radius: 10px;
-        transition:
-          background-color 0.3s,
-          box-shadow 0.3s;
+        transition: background-color 0.3s, box-shadow 0.3s;
         cursor: pointer;
 
         span {

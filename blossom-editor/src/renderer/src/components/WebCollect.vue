@@ -6,7 +6,7 @@
         <div class="iconbl bl-a-closeline-line" @click="closeForm"></div>
       </bl-row>
       <bl-row>
-        <el-form label-width="70px" v-model="webForm" style="width: calc(100% - 90px)">
+        <el-form v-model="webForm" label-width="70px" style="width: calc(100% - 90px)">
           <el-form-item label="网站名称">
             <el-input v-model="webForm.name" style="width: 100%" />
           </el-form-item>
@@ -47,7 +47,7 @@
         </div>
       </bl-row>
       <bl-row just="space-between" style="margin-bottom: 10px; padding: 0 20px">
-        <el-button type="danger" @click="delWeb" :disabled="!(webForm.id > 0)">删除</el-button>
+        <el-button type="danger" :disabled="!(webForm.id > 0)" @click="delWeb">删除</el-button>
         <el-button type="primary" @click="saveWeb">保存</el-button>
       </bl-row>
     </div>
@@ -70,16 +70,11 @@
           {{ collect.title }}
         </bl-row>
         <div class="web-collect-content">
-          <div
-            v-for="web in collect.webs"
-            :key="web.name"
-            :class="[
+          <div v-for="web in collect.webs" :key="web.name" :class="[
               'web-item',
               viewStyle.isWebCollectCard ? 'web-item-card' : 'web-item-list',
               viewStyle.isGlobalShadow ? 'web-item-heavy' : 'web-item-light'
-            ]"
-            @click="openExtenal(web.url)"
-            @contextmenu="showForm($event, web)">
+            ]" @click="openExtenal(web.url)" @contextmenu="showForm($event, web)">
             <img v-if="isNotBlank(web.img)" :src="web.img" />
             <svg v-else aria-hidden="true">
               <use :xlink:href="'#' + web.icon"></use>
@@ -117,7 +112,7 @@ const getWebAll = () => {
       data.value = []
       return
     }
-    let webs = [
+    const webs = [
       { title: 'Daily', webs: resp.data.daily },
       { title: 'Work', webs: resp.data.work },
       { title: 'Other', webs: resp.data.other }
@@ -267,9 +262,7 @@ const showWebCollectCard = (card: boolean) => {
   }
 
   .web-item {
-    transition:
-      transform 0.2s,
-      box-shadow 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     cursor: pointer;
     img,
     svg {

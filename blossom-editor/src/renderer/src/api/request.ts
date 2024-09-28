@@ -13,7 +13,8 @@ export class Request {
   instance: AxiosInstance
   /** 基础配置，url和超时时间 */
   baseConfig: AxiosRequestConfig = {
-    baseURL: Local.get(serverUrlKey),
+    // baseURL: Local.get(serverUrlKey),
+    baseURL: 'http://47.96.77.127:9999/',
     timeout: 60000
   }
   /**
@@ -28,7 +29,7 @@ export class Request {
     this.instance.interceptors.request.use(
       (config: AxiosRequestConfig): any => {
         let token: string = ''
-        let tokenCache = Local.get(authKey)
+        const tokenCache = Local.get(authKey)
         if (isNotNull(tokenCache) && isNotNull(tokenCache.token)) {
           token = tokenCache.token
         }
@@ -55,7 +56,7 @@ export class Request {
         if (status !== 200) {
           Promise.reject(res)
         }
-        let data = res.data
+        const data = res.data
         // 本次响应是否正确
         let isSuccess = false
 
@@ -88,7 +89,7 @@ export class Request {
           return Promise.reject(res)
         } else {
           /* 其他接口报错, 直接拒绝并提示错误信息 */
-          let errorResponse = data
+          const errorResponse = data
           errorResponse['url'] = res.config.url
           Notify.error(data.msg, '处理失败')
           return Promise.reject(res)
@@ -104,9 +105,9 @@ export class Request {
         if (err.config) {
           url = ':' + err.config.url
         }
-        let code = err.code
-        let resp = err.response
-        console.log("🚀 ~ Request ~ constructor ~ resp:123123123", resp)
+        const code = err.code
+        const resp = err.response
+        console.log('🚀 ~ Request ~ constructor ~ resp:123123123', resp)
         if (code === 'ERR_NETWORK') {
           Notify.error('网络错误, 请检查您的网络是否通畅', '请求失败')
           return Promise.reject(err)

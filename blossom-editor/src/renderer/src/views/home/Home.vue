@@ -30,7 +30,6 @@
           </bl-col>
           <!-- 统计卡片 -->
           <bl-col width="200px">
-            <bl-row class="container-sub-name">Blossom Statistic</bl-row>
             <StatisticCard></StatisticCard>
           </bl-col>
         </bl-row>
@@ -57,14 +56,12 @@
       </div>
     </div>
 
-    <!-- 
+    <!--
       =======================================================
       middle
       =======================================================
      -->
-    <div
-      :class="['middle', viewStyle.webCollectExpand ? 'expand' : 'fold']"
-      :style="{ width: viewStyle.webCollectExpand ? 'calc(100% - 1px - 0px - 10px - 910px - 420px)' : 'calc(100% - 1px - 0px - 10px - 910px)' }">
+    <div :class="['middle', viewStyle.webCollectExpand ? 'expand' : 'fold']" :style="{ width: viewStyle.webCollectExpand ? 'calc(100% - 1px - 0px - 10px - 910px - 420px)' : 'calc(100% - 1px - 0px - 10px - 910px)' }">
       <div v-if="!viewStyle.webCollectExpand" class="web-show iconbl bl-left-line" @click="expand"></div>
       <div style="height: 15px"></div>
 
@@ -85,31 +82,22 @@
       </bl-col>
     </div>
 
-    <!-- 
+    <!--
       =======================================================
       right
       =======================================================
      -->
-    <div
-      :class="[
+    <div :class="[
         'web-container',
         viewStyle.webCollectExpand ? 'expand' : 'fold',
         viewStyle.isGlobalShadow ? 'web-container-heavy' : 'web-container-light'
-      ]"
-      :style="{ width: viewStyle.webCollectExpand ? '420px' : '0px', opacity: viewStyle.webCollectExpand ? 1 : 0 }">
+      ]" :style="{ width: viewStyle.webCollectExpand ? '420px' : '0px', opacity: viewStyle.webCollectExpand ? 1 : 0 }">
       <div v-if="viewStyle.webCollectExpand" class="web-hide iconbl bl-right-line" @click="fold"></div>
       <WebCollect></WebCollect>
     </div>
   </div>
 
-  <el-dialog
-    v-model="isShowWordsInfoDialog"
-    width="80%"
-    :align-center="true"
-    :append-to-body="true"
-    :destroy-on-close="true"
-    :close-on-click-modal="false"
-    draggable>
+  <el-dialog v-model="isShowWordsInfoDialog" width="80%" :align-center="true" :append-to-body="true" :destroy-on-close="true" :close-on-click-modal="false" draggable>
     <WordsInfo></WordsInfo>
   </el-dialog>
 </template>

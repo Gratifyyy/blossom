@@ -3,24 +3,24 @@ const blossom = {
    * 基础配置
    */
   SYS: {
-    NAME: 'Blossom',
-    FULL_NAME: 'BLOSSOM-EDITOR',
-    VERSION: 'v1.16.0',
+    NAME: 'Kexikehe',
+    FULL_NAME: 'Kexikehe-EDITOR',
+    VERSION: 'v1.0.0',
 
     //
-    DOC: 'https://www.wangyunf.com/blossom-doc/index',
-    CONTACT: 'https://www.wangyunf.com/blossom-doc/guide/about/contact.html',
-    SPONSOR: 'https://www.wangyunf.com/blossom-doc/guide/about/sponsor.html',
-    GITHUB_REPO: 'https://github.com/blossom-editor/blossom',
-    GITHUB_RELEASE: 'https://github.com/blossom-editor/blossom/releases',
-    GITEE_REPO: 'https://gitee.com/blossom-editor/blossom'
+    DOC: '',
+    CONTACT: '',
+    SPONSOR: '',
+    GITHUB_REPO: '',
+    GITHUB_RELEASE: '',
+    GITEE_REPO: ''
   },
 
   // 试用地址和账号
   TRY_USE: {
-    serverUrl: 'https://www.wangyunf.com/bl',
-    username: 'blos',
-    password: 'blos'
+    serverUrl: '',
+    username: '',
+    password: ''
   }
 }
 

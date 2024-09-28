@@ -2,26 +2,36 @@
   <div class="server-config-root">
     <el-tabs v-model="curTab" style="height: 100%" class="config-tabs" tab-position="left" type="card" @tab-change="handleChange">
       <el-tab-pane label="客户端配置" name="client">
-        <div class="tab-content"><ConfigClient></ConfigClient></div>
+        <div class="tab-content">
+          <ConfigClient></ConfigClient>
+        </div>
       </el-tab-pane>
-      <el-tab-pane label="服务器配置" name="server" :lazy="true" v-if="userStore.userinfo.type === 1 && userStore.isLogin">
-        <div class="tab-content"><ConfigServer ref="ConfigServerRef"></ConfigServer></div>
+      <el-tab-pane v-if="userStore.userinfo.type === 1 && userStore.isLogin" label="服务器配置" name="server" :lazy="true">
+        <div class="tab-content">
+          <ConfigServer ref="ConfigServerRef"></ConfigServer>
+        </div>
       </el-tab-pane>
-      <el-tab-pane label="博客配置" name="blog" :lazy="true" v-if="userStore.isLogin">
-        <div class="tab-content"><ConfigBlog ref="ConfigBlogRef"></ConfigBlog></div>
+      <el-tab-pane v-if="userStore.isLogin" label="博客配置" name="blog" :lazy="true">
+        <div class="tab-content">
+          <ConfigBlog ref="ConfigBlogRef"></ConfigBlog>
+        </div>
       </el-tab-pane>
       <el-tab-pane label="修改个人信息" name="userinfo" :lazy="true">
-        <div class="tab-content"><ConfigUserinfo ref="ConfigUserinfoRef"></ConfigUserinfo></div>
+        <div class="tab-content">
+          <ConfigUserinfo ref="ConfigUserinfoRef"></ConfigUserinfo>
+        </div>
       </el-tab-pane>
-      <el-tab-pane label="修改登录密码" name="password" :lazy="true" v-if="userStore.isLogin">
-        <div class="tab-content"><ConfigUpdPwd></ConfigUpdPwd></div>
+      <el-tab-pane v-if="userStore.isLogin" label="修改登录密码" name="password" :lazy="true">
+        <div class="tab-content">
+          <ConfigUpdPwd></ConfigUpdPwd>
+        </div>
       </el-tab-pane>
-      <el-tab-pane label="添加使用账号" name="adduser" :lazy="true" v-if="userStore.userinfo.type === 1 && userStore.isLogin">
+      <el-tab-pane v-if="userStore.userinfo.type === 1 && userStore.isLogin" label="添加使用账号" name="adduser" :lazy="true">
         <div class="tab-content">
           <ConfigAddUser></ConfigAddUser>
         </div>
       </el-tab-pane>
-      <el-tab-pane label="实时访问流量" name="flow" :lazy="true" v-if="userStore.isLogin && userStore.userinfo.type === 1 && userStore.isLogin">
+      <el-tab-pane v-if="userStore.isLogin && userStore.userinfo.type === 1 && userStore.isLogin" label="实时访问流量" name="flow" :lazy="true">
         <SentinelResources></SentinelResources>
       </el-tab-pane>
     </el-tabs>
@@ -77,6 +87,7 @@ const handleChange = (name: string) => {
   }
 
   .tab-content {
+    padding-top: 8px;
     width: 100%;
     height: 100%;
     padding-left: 30px;

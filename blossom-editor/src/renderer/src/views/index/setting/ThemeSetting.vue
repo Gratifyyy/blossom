@@ -1,36 +1,20 @@
 <template>
-  <div class="theme-setting-root" ref="ThemeSettingRef">
-    <div class="title" ref="ThemeSettingTitleRef">
+  <div ref="ThemeSettingRef" class="theme-setting-root">
+    <div ref="ThemeSettingTitleRef" class="title">
       <div>
         🎨 主题样式
-        <el-switch
-          class="setting-switch"
-          size="default"
-          v-model="isDark"
-          :active-icon="Moon"
-          :inactive-icon="Sunny"
-          inline-prompt
-          @change="changeTheme" />
+        <el-switch v-model="isDark" class="setting-switch" size="default" :active-icon="Moon" :inactive-icon="Sunny" inline-prompt @change="changeTheme" />
       </div>
       <div class="iconbl bl-a-closeline-line" @click="themeStore.close()"></div>
     </div>
 
     <bl-col class="content" align="flex-start">
-      <el-tabs tab-position="right" class="tabs" v-model="activeTab">
+      <el-tabs v-model="activeTab" tab-position="right" class="tabs">
         <el-tab-pane label="主题" name="theme">
           <bl-row class="prop-name">日间</bl-row>
           <bl-row class="colors" align="flex-start">
-            <el-color-picker
-              popper-class="theme-color-picker"
-              v-model="customLight"
-              color-format="rgb"
-              @change="changePrimaryColor(customLight, false)" />
-            <div
-              class="color-item"
-              v-for="preset in presetsLight"
-              :key="preset.color"
-              :style="{ backgroundColor: preset.color }"
-              @click="changePrimaryColor(preset.color, false)">
+            <el-color-picker v-model="customLight" popper-class="theme-color-picker" color-format="rgb" @change="changePrimaryColor(customLight, false)" />
+            <div v-for="preset in presetsLight" :key="preset.color" class="color-item" :style="{ backgroundColor: preset.color }" @click="changePrimaryColor(preset.color, false)">
               <div class="name">{{ preset.name }}</div>
             </div>
           </bl-row>
@@ -38,17 +22,8 @@
           <!--  -->
           <bl-row class="prop-name">夜间</bl-row>
           <bl-row class="colors" align="flex-start">
-            <el-color-picker
-              popper-class="theme-color-picker"
-              v-model="customDark"
-              color-format="rgb"
-              @change="changePrimaryColor(customDark, true)" />
-            <div
-              class="color-item"
-              v-for="preset in presetsDark"
-              :key="preset.color"
-              :style="{ backgroundColor: preset.color }"
-              @click="changePrimaryColor(preset.color, true)">
+            <el-color-picker v-model="customDark" popper-class="theme-color-picker" color-format="rgb" @change="changePrimaryColor(customDark, true)" />
+            <div v-for="preset in presetsDark" :key="preset.color" class="color-item" :style="{ backgroundColor: preset.color }" @click="changePrimaryColor(preset.color, true)">
               <div class="name">{{ preset.name }}</div>
             </div>
           </bl-row>
@@ -58,20 +33,6 @@
               <div class="prop-name">增强阴影效果</div>
             </div>
             <el-switch v-model="viewStyle.isGlobalShadow" size="default" @change="changeGlobalShadow" />
-          </bl-row>
-
-          <bl-row class="prop-row" just="space-between">
-            <div class="prop">
-              <div class="prop-name">显示试用按钮</div>
-            </div>
-            <el-switch v-model="viewStyle.isShowTryuseBtn" size="default" @change="changeViewStype" />
-          </bl-row>
-
-          <bl-row class="prop-row" just="space-between">
-            <div class="prop">
-              <div class="prop-name">显示左上角 LOGO</div>
-            </div>
-            <el-switch v-model="viewStyle.isShowAsideLogo" size="default" @change="changeViewStype" />
           </bl-row>
 
           <bl-row class="prop-row" just="space-between">
@@ -99,9 +60,11 @@
             </el-button-group>
           </bl-row>
 
-          <bl-col class="desc" align="flex-end"><div>修改主题后, 再次切换日间/夜间模式可查看完整效果。</div></bl-col>
+          <bl-col class="desc" align="flex-end">
+            <div>修改主题后, 再次切换日间/夜间模式可查看完整效果。</div>
+          </bl-col>
         </el-tab-pane>
-        <!--  
+        <!--
 
 
 
@@ -189,7 +152,7 @@
             <el-switch v-model="viewStyle.isShowArticleIcon" size="default" @change="changeViewStype" />
           </bl-row>
         </el-tab-pane>
-        <!--  
+        <!--
 
 
 
@@ -301,7 +264,7 @@ const changeGlobalShadow = (open: boolean) => {
     resetStyleItems(['--bl-text-shadow', '--bl-text-shadow-light', '--bl-box-shadow-subject', '--bl-drop-shadow-star'], true)
     resetStyleItems(['--bl-text-shadow', '--bl-text-shadow-light', '--bl-box-shadow-subject', '--bl-drop-shadow-star'], false)
   } else {
-    let style = {
+    const style = {
       '--bl-text-shadow': 'none',
       '--bl-text-shadow-light': 'none',
       '--bl-box-shadow-subject': 'none',

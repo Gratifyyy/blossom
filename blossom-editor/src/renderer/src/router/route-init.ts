@@ -3,6 +3,7 @@ import router from '@renderer/router'
 // 全局根页面
 import Index from '@renderer/views/Index.vue'
 import SettingIndex from '@renderer/views/index/SettingIndex.vue'
+import Login from '@renderer/views/index/SettingLogin.vue'
 
 import Home from '@renderer/views/home/Home.vue'
 import ArticleIndex from '@renderer/views/article/ArticleIndex.vue'
@@ -36,19 +37,25 @@ router.addRoute({
   component: Index,
   meta: { keepAlive: true },
   children: [
-    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true, title: 'Blossom 首页' } },
-    { path: '/settingIndex', name: 'SettingIndex', component: SettingIndex, meta: { keepAlive: false, title: 'Blossom 设置' } },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
+      meta: { keepAlive: true, title: '登录' }
+    },
+    { path: '/home', name: 'Home', component: Home, meta: { keepAlive: true, title: '首页' } },
+    { path: '/settingIndex', name: 'SettingIndex', component: SettingIndex, meta: { keepAlive: false, title: '设置' } },
     // 功能页面
-    { path: '/articleIndex', name: 'ArticleIndex', component: ArticleIndex, meta: { keepAlive: true, title: 'Blossom 文章编辑' } },
-    { path: '/pictureIndex', name: 'PictureIndex', component: PictureIndex, meta: { keepAlive: true, title: 'Blossom 资源库' } },
-    { path: '/todoIndex', name: 'TodoIndex', component: TodoIndex, meta: { keepAlive: true, title: 'Blossom 待办事项' } },
-    { path: '/noteIndex', name: 'NoteIndex', component: NoteIndex, meta: { keepAlive: false, title: 'Blossom 便签' } },
-    { path: '/planIndex', name: 'PlanIndex', component: PlanIndex, meta: { keepAlive: false, title: 'Blossom 日历计划' } },
+    { path: '/articleIndex', name: 'ArticleIndex', component: ArticleIndex, meta: { keepAlive: true, title: '文章编辑' } },
+    { path: '/pictureIndex', name: 'PictureIndex', component: PictureIndex, meta: { keepAlive: true, title: '资源库' } },
+    { path: '/todoIndex', name: 'TodoIndex', component: TodoIndex, meta: { keepAlive: true, title: '待办事项' } },
+    { path: '/noteIndex', name: 'NoteIndex', component: NoteIndex, meta: { keepAlive: false, title: '便签' } },
+    { path: '/planIndex', name: 'PlanIndex', component: PlanIndex, meta: { keepAlive: false, title: '日历计划' } },
     {
       path: '/iconListIndex',
       name: 'IconListIndex',
       component: IconListIndex,
-      meta: { keepAlive: false, title: 'Blossom 图标库' },
+      meta: { keepAlive: false, title: '图标库' },
       props: {
         window: false
       }

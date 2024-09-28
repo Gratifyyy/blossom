@@ -5,11 +5,8 @@
     </div>
     <section class="blokken">
       <div class="textarea-placeholder">日期:{{ getDateZh() }}</div>
-      <textarea @keyup.ctrl.enter="saveNote" v-model="noteContent"></textarea>
-      <img
-        :class="['note-img', props.alwaysShowPlant ? 'note-img-always' : '']"
-        style="z-index: 40; right: 15px; bottom: 10px; width: 90px; height: 90px"
-        src="@renderer/assets/imgs/plant/08.png" />
+      <textarea v-model="noteContent" @keyup.ctrl.enter="saveNote"></textarea>
+      <img :class="['note-img', props.alwaysShowPlant ? 'note-img-always' : '']" style="z-index: 40; right: 15px; bottom: 10px; width: 90px; height: 90px" src="@renderer/assets/imgs/plant/08.png" />
       <img :class="['note-img', props.alwaysShowPlant ? 'note-img-always' : '']" src="@renderer/assets/imgs/plant/02.png" />
     </section>
   </div>
@@ -117,7 +114,7 @@ const emits = defineEmits(['saved'])
       color: #c2c2c2;
       background-color: #ffffffdc;
       text-align: right;
-      padding: 0 10px;
+      padding: 10px 10px;
     }
 
     textarea {

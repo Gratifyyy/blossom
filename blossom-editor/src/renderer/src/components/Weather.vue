@@ -38,7 +38,7 @@
 
     <!-- 今天 -->
     <div class="today hover-dark">
-      <div class="weather-title">Today</div>
+      <div class="weather-title">今天</div>
       <div class="weather-body">
         <img :src="weather.daily[0].img" style="width: 40px; height: 40px" />
         <!-- <img src="@renderer/assets/imgs/weather/feng.png" style="width: 40px;height: 40px;"> -->
@@ -53,7 +53,7 @@
 
     <!-- 明天 -->
     <div class="tomorrow hover-dark">
-      <div class="weather-title">Tomorrow</div>
+      <div class="weather-title">明天</div>
       <div class="weather-body">
         <img :src="weather.daily[1].img" style="width: 40px; height: 40px" />
         <span>{{ weather.daily[1].tempMax }}°C</span>
@@ -68,8 +68,7 @@
     <!-- 后天 -->
     <div class="day-after hover-dark">
       <div class="weather-title">
-        <span>Tomorrow</span>
-        <span>After</span>
+        <span>后天</span>
       </div>
       <div class="weather-body">
         <img :src="weather.daily[2].img" style="width: 40px; height: 40px" />
@@ -104,7 +103,7 @@ useLifecycle(
 const userStore = useUserStore()
 
 const getImgUrl = (name: string) => {
-  let iconValue = replacePrefix(name)
+  const iconValue = replacePrefix(name)
   if (isBlank(iconValue)) {
     return new URL(`../assets/imgs/weather/qing.png`, import.meta.url).href
   }
@@ -140,7 +139,7 @@ const getWeather = () => {
   getAll({ location: userStore.userinfo.location }).then((resp) => {
     if (resp.data.now) {
       if (resp.data.now.iconValue === '#wt-qing') {
-        let nowHours = new Date().getHours()
+        const nowHours = new Date().getHours()
         if (nowHours < 7 || nowHours > 19) {
           resp.data.now.img = getImgUrl('qing-moon')
         } else {
@@ -242,7 +241,7 @@ const refreshWeatherTask = () => {
   .weather-title {
     @include flex(column, flex-start, flex-end);
     @include box(100%, 15%);
-    padding: 0 10px;
+    padding: 5px 10px;
     font-size: 11px;
   }
 
@@ -262,9 +261,7 @@ const refreshWeatherTask = () => {
     border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     background-color: var(--el-color-primary);
-    transition:
-      box-shadow 0.3s,
-      width 0.2s;
+    transition: box-shadow 0.3s, width 0.2s;
     margin-left: 10px;
 
     svg {
@@ -308,10 +305,7 @@ const refreshWeatherTask = () => {
   .tomorrow,
   .day-after {
     @include box(100px, 200px);
-    transition:
-      box-shadow 0.3s,
-      width 0.2s,
-      height 0.2s;
+    transition: box-shadow 0.3s, width 0.2s, height 0.2s;
 
     &:hover {
       z-index: 15;

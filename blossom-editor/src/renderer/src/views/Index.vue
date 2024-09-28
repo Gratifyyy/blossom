@@ -29,8 +29,8 @@ import { useConfigStore } from '@renderer/stores/config'
 const { viewStyle } = useConfigStore()
 
 onMounted(() => {
-  console.log(`blossom => 是否 Electron 容器：${isElectron()}`)
-  console.log(`blossom => 当前运行环境：${import.meta.env.MODE}`)
+  console.log(`是否 Electron 容器：${isElectron()}`)
+  console.log(`当前运行环境：${import.meta.env.MODE}`)
 })
 
 const includeRouter = ref<any>(['settingIndex'])

@@ -1,24 +1,24 @@
 <template>
   <div class="setting-index-root">
-    <el-tabs tab-position="left" class="setting-tabs" v-model="activeTab">
-      <el-tab-pane label="登录" name="login">
+    <SettingConfig class="setting-tabs"></SettingConfig>
+
+    <!-- <el-tabs v-model="activeTab" tab-position="left" class="setting-tabs"> -->
+    <!-- <el-tab-pane label="登录" name="login">
         <div class="setting-container">
           <div class="wrapper">
             <SettingLogin></SettingLogin>
           </div>
         </div>
-      </el-tab-pane>
-      <el-tab-pane label="设置" name="setting">
-        <SettingConfig></SettingConfig>
-      </el-tab-pane>
-      <el-tab-pane label="关于" name="about">
+      </el-tab-pane> -->
+    <!-- <el-tab-pane label="设置" name="setting"> </el-tab-pane> -->
+    <!-- <el-tab-pane label="关于" name="about">
         <SettingAboutVue></SettingAboutVue>
-      </el-tab-pane>
-    </el-tabs>
+      </el-tab-pane> -->
+    <!-- </el-tabs> -->
   </div>
-  <div class="version">
+  <!-- <div class="version">
     <span>{{ CONFIG.SYS.NAME + ' | ' + CONFIG.SYS.VERSION + getServerVersion() }}</span>
-  </div>
+  </div> -->
 </template>
 
 <script setup lang="ts">
@@ -35,35 +35,20 @@ const userStore = useUserStore()
 const route = useRoute()
 
 onMounted(() => {
-  document.title = 'Blossom 设置'
-  let actTab = route.query.activeTab as string
-  if (isNotBlank(actTab)) {
-    activeTab.value = actTab
-  } else {
-    activeTab.value = 'login'
-  }
+  document.title = '设置'
 })
-
-const activeTab = ref('login')
-
-const getServerVersion = () => {
-  if (userStore.sysParams && userStore.sysParams.SERVER_VERSION) {
-    return ' | v' + userStore.sysParams.SERVER_VERSION.replaceAll('-SNAPSHOT', '')
-  }
-  return ''
-}
 </script>
 
 <style scoped lang="scss">
 .setting-index-root {
   @include box(100%, 100%);
   background-image: linear-gradient(145deg, transparent 0%, transparent 55%, var(--el-color-primary-light-5));
-  padding: 50px 0 0 50px;
   z-index: 2;
 
   .setting-tabs {
     width: 100%;
     height: 100%;
+    padding: 0 0 0 20px;
 
     :deep(.el-tabs__nav-wrap::after) {
       background-color: transparent;
@@ -73,11 +58,28 @@ const getServerVersion = () => {
       background-color: transparent;
     }
 
+    :deep(.el-tabs__nav) {
+      border: none;
+    }
+
+    :deep(.el-tabs__item) {
+      border: none;
+    }
+
+    :deep(.el-tabs__item.is-left.is-active) {
+      border: none;
+    }
+
+    :deep(.el-tabs__item.is-left) {
+      border: none;
+    }
+
     :deep(.el-tabs__content) {
       height: 100%;
 
       .el-tab-pane {
         height: 100%;
+        border: none;
       }
     }
   }

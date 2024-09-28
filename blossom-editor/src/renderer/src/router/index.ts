@@ -10,7 +10,7 @@ export const toRoute = (path: string) => {
 }
 
 export const toLogin = () => {
-  router.push('/settingIndex')
+  router.push('/login')
 }
 
 /**

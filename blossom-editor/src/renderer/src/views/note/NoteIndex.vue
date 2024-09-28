@@ -17,12 +17,12 @@
         </bl-col>
       </bl-row>
       <bl-row height="calc(100% - 200px)">
-        <NoteEditor :alwaysShowPlant="true" @saved="getNoteList()"></NoteEditor>
+        <NoteEditor :always-show-plant="true" @saved="getNoteList()"></NoteEditor>
       </bl-row>
     </div>
     <div class="note-container">
       <div v-if="isEmpty(notes)" class="placeholder">无便签</div>
-      <section v-else v-for="note in notes" :key="note.id" :class="['note', note.top == 1 ? 'note-top' : '']">
+      <section v-for="note in notes" v-else :key="note.id" :class="['note', note.top == 1 ? 'note-top' : '']">
         <div class="cd" @click="saveToStorage(note.content)" @click.right="copyContent(note.content)">
           <img src="@renderer/assets/imgs/note/cd.png" />
         </div>
@@ -35,14 +35,8 @@
         <div class="note-workbench">
           {{ note.creTime }}
         </div>
-        <el-input
-          v-if="note.updContent"
-          type="textarea"
-          v-model="note.content"
-          :id="'note-content-input-' + note.id"
-          :rows="17"
-          @blur="blurNoteInput(note)"></el-input>
-        <div class="content" v-else @dblclick="showNoteInput(note)">
+        <el-input v-if="note.updContent" :id="'note-content-input-' + note.id" v-model="note.content" type="textarea" :rows="17" @blur="blurNoteInput(note)"></el-input>
+        <div v-else class="content" @dblclick="showNoteInput(note)">
           {{ note.content }}
         </div>
       </section>
@@ -82,7 +76,7 @@ const copyContent = (content: string) => {
 }
 
 const top = (id: number, top: number) => {
-  let param = { id: id, top: Math.abs(top - 1) }
+  const param = { id: id, top: Math.abs(top - 1) }
   noteTopApi(param).then((_resp) => {
     getNoteList()
   })
@@ -106,7 +100,7 @@ const blurNoteInput = (note: any) => {
 const showNoteInput = (note: any) => {
   note.updContent = true
   nextTick(() => {
-    let ele = document.getElementById('note-content-input-' + note.id)
+    const ele = document.getElementById('note-content-input-' + note.id)
     if (ele) ele.focus()
   })
 }
@@ -228,7 +222,7 @@ const notes = ref<any>([])
 
       .content {
         @include box(100%, calc(100% - 42px));
-        @include font(14px,300);
+        @include font(14px, 300);
         max-height: calc(100% - 21px);
         line-height: 20.8px;
         padding: 0 5px;

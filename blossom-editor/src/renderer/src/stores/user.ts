@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { Local } from '@renderer/assets/utils/storage'
 import { loginApi, logoutApi, checkApi, userinfoApi } from '@renderer/api/auth'
 import { setUserinfo } from '@renderer/assets/utils/electron'
+import { toLogin } from '@renderer/router'
 
 export const storeKey = 'token'
 export const userinfoKey = 'userinfo'
@@ -37,7 +38,7 @@ export const enum AuthStatus {
  * 初始化登录状态
  */
 const initAuth = () => {
-  let auth = {
+  const auth = {
     token: '',
     status: AuthStatus.Wait
   }
@@ -193,7 +194,7 @@ export const useUserStore = defineStore('userStore', {
        */
       await loginApi({ username: username, password: password, clientId: 'blossom', grantType: 'password' })
         .then((resp: any) => {
-          let auth = { token: resp.data.token, status: AuthStatus.Succ }
+          const auth = { token: resp.data.token, status: AuthStatus.Succ }
           this.auth = auth
           Local.set(storeKey, auth)
           this.getUserinfo()
@@ -201,7 +202,7 @@ export const useUserStore = defineStore('userStore', {
         .catch((_e) => {
           this.reset()
           // 登录失败的状态需要特别更改
-          let auth = { token: '', status: AuthStatus.Fail }
+          const auth = { token: '', status: AuthStatus.Fail }
           this.auth = auth
         })
     },
@@ -211,6 +212,7 @@ export const useUserStore = defineStore('userStore', {
     async logout() {
       await logoutApi().then((_) => {
         this.reset()
+        toLogin()
       })
     },
     /**
@@ -220,7 +222,7 @@ export const useUserStore = defineStore('userStore', {
       this.auth.status = AuthStatus.Checking
       await checkApi()
         .then((resp) => {
-          let auth = { token: resp.data.token, status: AuthStatus.Succ }
+          const auth = { token: resp.data.token, status: AuthStatus.Succ }
           this.auth = auth
           Local.set(storeKey, auth)
           this.getUserinfo()
@@ -229,7 +231,7 @@ export const useUserStore = defineStore('userStore', {
         .catch((_error) => {
           this.reset()
           // 登录失败的状态需要特别更改
-          let auth = { token: '', status: AuthStatus.Wait }
+          const auth = { token: '', status: AuthStatus.Wait }
           this.auth = auth
           fail()
         })

@@ -61,8 +61,8 @@ export type UploadCallback = (url: string) => void
  */
 export const wrapperFilename = (name: string): string => {
   if (picStyle.isAddSuffix) {
-    let prefix = getFilePrefix(name)
-    let suffix = getFileSuffix(name)
+    const prefix = getFilePrefix(name)
+    const suffix = getFileSuffix(name)
     return prefix + `_${getNowTime()}_${randomInt(1, 999)}.${suffix}`
   }
   return name
@@ -160,7 +160,7 @@ export const handleUploadError = (error: Error) => {
       Notify.error('可能是由于您上传的文件过大, 请检查服务端上传大小限制。', '上传失败')
     } else {
       try {
-        let resp = JSON.parse(error.message)
+        const resp = JSON.parse(error.message)
         if (resp != undefined) {
           Notify.error(resp.msg, '上传失败')
         }
@@ -180,7 +180,7 @@ export const articleNamesToArray = (names: string): string[] => {
   if (isBlank(names)) {
     return []
   }
-  let result = names.split(',').filter((name) => isNotBlank(name))
+  const result = names.split(',').filter((name) => isNotBlank(name))
   return result
 }
 

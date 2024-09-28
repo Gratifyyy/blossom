@@ -1,7 +1,7 @@
 <template>
   <div class="index-picture-root">
     <!-- folder menu -->
-    <div class="doc-container" ref="DocsRef">
+    <div ref="DocsRef" class="doc-container">
       <div class="doc-tree-menu-container">
         <PictureTreeDocs @click-doc="clickCurFolder"></PictureTreeDocs>
       </div>
@@ -11,9 +11,9 @@
       </div>
     </div>
 
-    <div class="resize-divider-vertical" ref="ResizeDividerRef"></div>
+    <div ref="ResizeDividerRef" class="resize-divider-vertical"></div>
 
-    <div class="picture-container" ref="PictureContainerRef">
+    <div ref="PictureContainerRef" class="picture-container">
       <!-- 工作台 -->
       <div class="picutre-workbench" :style="workbencStyle.workbench1">
         <div class="workbenchs">
@@ -37,14 +37,7 @@
                 <template #content> 开启重复上传后，重名的图片将会被覆盖 </template>
                 <div>重复上传<span class="iconbl bl-admonish-line"></span></div>
               </el-tooltip>
-              <el-switch
-                width="70"
-                class="replace-upload-switch"
-                inline-prompt
-                size="large"
-                v-model="isReplaceUpload"
-                active-text="开启"
-                inactive-text="关闭" />
+              <el-switch v-model="isReplaceUpload" width="70" class="replace-upload-switch" inline-prompt size="large" active-text="开启" inactive-text="关闭" />
             </div>
 
             <div class="btn-wrapper">
@@ -73,7 +66,7 @@
           </div>
           <div class="workbench-level2" :style="workbencStyle.workbench2 as StyleValue">
             <el-checkbox v-model="checkedAll" @change="handlCheckedAll">全选</el-checkbox>
-            <el-button type="primary" text bg @click="transfer" style="margin-left: 11px">移动</el-button>
+            <el-button type="primary" text bg style="margin-left: 11px" @click="transfer">移动</el-button>
             <el-button type="primary" text bg @click="delBatch">删除</el-button>
             <el-button type="danger" text bg @click="delBatchIgnoreCheck">强制删除</el-button>
           </div>
@@ -87,13 +80,8 @@
       </div>
 
       <div class="picture-card-container" :style="workbencStyle.cards">
-        <div :class="['picture-card', cardClass]" v-for="pic in picturePages" @click.right="picCheckRightClick(pic, $event)">
-          <el-checkbox
-            v-show="isExpandWorkbench"
-            class="picture-card-check"
-            size="large"
-            v-model="pic.checked"
-            @change="(check: boolean) => picCheckChange(check, pic.id)">
+        <div v-for="pic in picturePages" :class="['picture-card', cardClass]" @click.right="picCheckRightClick(pic, $event)">
+          <el-checkbox v-show="isExpandWorkbench" v-model="pic.checked" class="picture-card-check" size="large" @change="(check: boolean) => picCheckChange(check, pic.id)">
           </el-checkbox>
 
           <div v-if="pic.delTime" class="img-deleted">
@@ -115,8 +103,7 @@
                   <bl-row>图片大小: {{ formatFileSize(pic.size) }}</bl-row>
                   <bl-row>上传时间: {{ pic.creTime }}</bl-row>
                   <bl-row>图片路径: {{ pic.pathName }}</bl-row>
-                  <bl-row v-if="!isEmpty(pic.articleNames)" align="flex-start"
-                    >引用文章:
+                  <bl-row v-if="!isEmpty(pic.articleNames)" align="flex-start">引用文章:
                     <div>
                       <div v-for="aname in articleNamesToArray(pic.articleNames)" style="margin-left: -13px">《{{ aname }}》</div>
                     </div>
@@ -151,27 +138,11 @@
     <PictureViewerInfo ref="PictureViewerInfoRef"></PictureViewerInfo>
   </div>
 
-  <el-dialog
-    v-model="isShowTransferDialog"
-    width="400px"
-    style="height: fit-content"
-    :align-center="true"
-    :append-to-body="true"
-    :destroy-on-close="true"
-    :close-on-click-modal="false"
-    draggable>
+  <el-dialog v-model="isShowTransferDialog" width="400px" style="height: fit-content" :align-center="true" :append-to-body="true" :destroy-on-close="true" :close-on-click-modal="false" draggable>
     <PictureTransfer :ids="picChecks" @transferred="transferred"></PictureTransfer>
   </el-dialog>
 
-  <el-dialog
-    v-model="isShowBatchDelDialog"
-    width="500px"
-    style="height: fit-content"
-    :align-center="true"
-    :append-to-body="true"
-    :destroy-on-close="true"
-    :close-on-click-modal="false"
-    draggable>
+  <el-dialog v-model="isShowBatchDelDialog" width="500px" style="height: fit-content" :align-center="true" :append-to-body="true" :destroy-on-close="true" :close-on-click-modal="false" draggable>
     <PictureBatchDel :ids="picChecks" :ignore-check="delIgnoreCheck" @deleted="deleted"></PictureBatchDel>
   </el-dialog>
 </template>
@@ -344,14 +315,14 @@ const showPicInfo = (url: string) => {
  * @param a
  */
 const onErrorImg = (a: Event) => {
-  let imgEle = a.target as HTMLImageElement
+  const imgEle = a.target as HTMLImageElement
   if (imgEle) {
     imgEle.src = errorImg
     imgEle.classList.add('img-error')
     imgEle.style.width = '32px'
     imgEle.style.height = 'auto'
     if (imgEle.parentNode) {
-      let imgWrapper: HTMLElement = imgEle.parentNode as HTMLElement
+      const imgWrapper: HTMLElement = imgEle.parentNode as HTMLElement
       imgWrapper.style.backgroundColor = 'var(--bl-bg-color)'
     }
   }
@@ -383,7 +354,7 @@ const copyMarkdownUrl = (url: string, picName: string, event: MouseEvent) => {
  * @param pic 当前选中图片
  */
 const starPicture = (pic: Picture) => {
-  let param = {
+  const param = {
     id: pic.id,
     starStatus: pic.starStatus == 1 ? 0 : 1
   }
@@ -402,7 +373,7 @@ const deletePicture = (pic: Picture) => {
     cancelButtonText: '取消',
     type: 'warning'
   }).then(() => {
-    let articleCount = articleNamesToArray(pic.articleNames).length
+    const articleCount = articleNamesToArray(pic.articleNames).length
     if (articleCount > 0) {
       ElNotification.error({
         title: '删除失败',
@@ -414,7 +385,7 @@ const deletePicture = (pic: Picture) => {
       })
       return
     }
-    let urlBak = pic.url
+    const urlBak = pic.url
     pic.url = '1'
     pic.delTime = 1
 
